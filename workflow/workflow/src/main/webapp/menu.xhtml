@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<p:menubar>
+			<p:submenu label="#{messages['menu.viatico']}">
+				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/viatico_edit.jsf"></p:menuitem>
+				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/viatico_list.jsf"></p:menuitem>
+			</p:submenu>
+			<p:submenu icon="ui-icon-bookmark" label="#{messages['menu.tramites']}">
+				
+			</p:submenu>
+
+			
+			<p:submenu icon="ui-icon-wrench" label="#{messages['menu.menuitem.administrar']}">
+				<p:submenu label="#{messages['menu.acceso']}"> 
+					<p:submenu label="#{messages['menu.rol']}">
+						<p:menuitem value="#{messages['menu.menuitem.new']}" icon="ui-icon-document" url="/rol_edit.jsf"></p:menuitem>
+						<p:menuitem value="#{messages['menu.menuitem.list']}" icon="ui-icon-clipboard" url="/rol_list.jsf"></p:menuitem>
+					</p:submenu>
+					<p:submenu label="#{messages['menu.user']}">
+						<p:menuitem value="#{messages['menu.menuitem.new']}" url="/user_edit.jsf"></p:menuitem>
+						<p:menuitem value="#{messages['menu.menuitem.list']}" url="/user_list.jsf"></p:menuitem>
+					</p:submenu>
+				</p:submenu>
+				
+				
+				<p:submenu label="#{messages['menu.organigrama']}"> 
+					<p:submenu label="#{messages['menu.dependencia']}">
+						<p:menuitem value="#{messages['menu.menuitem.new']}" url="/dependence_edit.jsf"></p:menuitem>
+						<p:menuitem value="#{messages['menu.menuitem.list']}" url="/dependence_list.jsf"></p:menuitem>
+					</p:submenu>
+					<p:submenu label="#{messages['menu.section']}">
+						<p:menuitem value="#{messages['menu.menuitem.new']}" icon="ui-icon-document" url="/section_edit.jsf"></p:menuitem>
+						<p:menuitem value="#{messages['menu.menuitem.list']}" icon="ui-icon-clipboard" url="/section_list.jsf"></p:menuitem>
+					</p:submenu>
+					<p:submenu label="#{messages['menu.officer']}">
+						<p:menuitem value="#{messages['menu.menuitem.new']}" icon="ui-icon-document" url="/officer_edit.jsf"></p:menuitem>
+						<p:menuitem value="#{messages['menu.menuitem.list']}" icon="ui-icon-clipboard" url="/officer_list.jsf"></p:menuitem>
+					</p:submenu>
+					<p:submenu label="#{messages['menu.cargo']}">
+						<p:menuitem value="#{messages['menu.menuitem.new']}"
+							icon="ui-icon-document" url="/charge_edit.jsf"></p:menuitem>
+						<p:menuitem value="#{messages['menu.menuitem.list']}"
+							icon="ui-icon-clipboard" url="/charge_list.jsf"></p:menuitem>
+					</p:submenu>
+				</p:submenu>
+				
+				
+				
+				<p:submenu label="#{messages['menu.documenttype']}">
+					<p:menuitem value="#{messages['menu.menuitem.new']}" icon="ui-icon-document" url="/documenttype_edit.jsf"></p:menuitem>
+					<p:menuitem value="#{messages['menu.menuitem.list']}" icon="ui-icon-clipboard" url="/documenttype_list.jsf"></p:menuitem>
+				</p:submenu>
+				<p:submenu label="#{messages['menu.menuitem.geograficos']}">
+					<p:submenu label="#{messages['menu.department']}">
+						<p:menuitem value="#{messages['menu.menuitem.new']}" icon="ui-icon-document" url="/department_edit.jsf"></p:menuitem>
+						<p:menuitem value="#{messages['menu.menuitem.list']}" icon="ui-icon-clipboard" url="/department_list.jsf"></p:menuitem>
+					</p:submenu>
+					<p:submenu label="#{messages['menu.locality']}">
+						<p:menuitem value="#{messages['menu.menuitem.new']}" icon="ui-icon-document" url="/locality_edit.jsf"></p:menuitem>
+						<p:menuitem value="#{messages['menu.menuitem.list']}" icon="ui-icon-clipboard" url="/locality_list.jsf"></p:menuitem>
+					</p:submenu>
+					<p:submenu label="#{messages['menu.city']}">
+						<p:menuitem value="#{messages['menu.menuitem.new']}"
+							icon="ui-icon-document" url="/city_edit.jsf"></p:menuitem>
+						<p:menuitem value="#{messages['menu.menuitem.list']}"
+							icon="ui-icon-clipboard" url="/city_list.jsf"></p:menuitem>
+					</p:submenu>
+				</p:submenu>
+				
+				
+				<p:submenu label="#{messages['menu.ruteo']}">
+						<p:submenu label="#{messages['menu.routing']}">
+							<p:menuitem value="#{messages['menu.menuitem.new']}" url="/routing_edit.jsf"></p:menuitem>
+							<p:menuitem value="#{messages['menu.menuitem.list']}" url="/routing_list.jsf"></p:menuitem>
+						</p:submenu>
+						<p:submenu label="#{messages['menu.dycheckoption']}">
+							<p:menuitem value="#{messages['menu.menuitem.new']}" url="/dycheckoption_edit.jsf"></p:menuitem>
+							<p:menuitem value="#{messages['menu.menuitem.list']}" url="/dycheckoption_list.jsf"></p:menuitem>
+						</p:submenu>
+				</p:submenu>
+				
+			</p:submenu>
+
+
+
+			<p:menuitem icon="ui-icon-power"  value="#{messages['menu.menuitem.quit']}" url="/index.jsp" />
+		</p:menubar>
+
+	</h:form>
+
+</ui:composition>

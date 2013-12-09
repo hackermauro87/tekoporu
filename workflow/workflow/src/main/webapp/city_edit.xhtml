@@ -1,0 +1,60 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{cityEditMB.insert}" rendered="#{!cityEditMB.updateMode}"
+						ajax="false" />
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{cityEditMB.update}" rendered="#{cityEditMB.updateMode}"
+						ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}"
+						onclick="confirmation.show()" rendered="#{cityEditMB.updateMode}"
+						type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert"
+						widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{cityEditMB.delete}" immediate="true" ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}"
+							onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+					<p:commandButton value="#{messages['button.cancel']}" type="button"
+						onclick="location.href='city_list.jsf'" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+			<p:fieldset legend="#{messages['city.label']}" toggleable="true"
+				toggleSpeed="500">
+				<p:focus context="fields" />
+				<h:panelGrid id="fields" columns="3">
+					<h:outputLabel value="#{messages['city.label.citDesc']}: "
+						for="citDesc" styleClass="text-input" />
+					<h:inputText id="citDesc" value="#{cityEditMB.bean.citDesc}"
+						title="#{messages['city.alt.citDesc']}" />
+					<p:message for="citDesc" />
+					<h:outputLabel value="#{messages['city.label.departamento']}: "
+						for="department" styleClass="text-input" />
+					<p:selectOneMenu filter="true" required="true"
+						requiredMessage="#{messages['message.required']}"
+						value="#{cityEditMB.depId}">
+						<f:selectItem itemLabel="#{messages['selectonemenu.seleccione']}"
+							itemValue="" />
+						<f:selectItems value="#{cityEditMB.selectOneItemDepartment}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

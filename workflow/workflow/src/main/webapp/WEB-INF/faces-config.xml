@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+	<converter>
+		<converter-id>PLbuttonsConverter</converter-id>
+		<converter-class>py.gov.pj.workflow.util.PLbuttonConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-id>PLchecksConverter</converter-id>
+		<converter-class>py.gov.pj.workflow.util.PLchecksConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-id>PLusersConverter</converter-id>
+		<converter-class>py.gov.pj.workflow.util.PLusersConverter</converter-class>
+	</converter>
+</faces-config>

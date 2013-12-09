@@ -1,0 +1,62 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<link type="text/css" rel="stylesheet" href="css/style.css" />
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['button.new']}"
+						image="ui-icon-document"
+						action="#{dycheckoptionListMB.getNextView}"
+						actionListener="#{dycheckoptionListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['button.delete']}"
+						image="ui-icon-trash" onclick="confirmation.show()" type="button"
+						immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert"
+						widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{dycheckoptionListMB.deleteSelection}"
+							actionListener="#{dycheckoptionListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.no']}"
+							onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable id="list" var="bean"
+				value="#{dycheckoptionListMB.resultList}" rows="5" paginator="true"
+				lazy="true">
+				<f:facet name="header">#{messages['dycheckoption.list.table.title']}</f:facet>
+				<p:column style="width:1%;">
+					<h:selectBooleanCheckbox
+						value="#{dycheckoptionListMB.selection[bean.dychkId]}"></h:selectBooleanCheckbox>
+				</p:column>
+
+				<p:column sortBy="#{bean.dychkDesc}">
+					<f:facet name="header">#{messages['dycheckoption.label.dychkDesc']}</f:facet>
+					<h:outputText value="#{bean.dychkDesc}" styleClass="texto" />
+					<f:param name="id" value="#{bean.dychkId}" />
+				</p:column>
+				<p:column style="text-align:center">
+					<f:facet name="header">#{messages['department.label.editar']}</f:facet>
+					<h:commandLink action="#{dycheckoptionListMB.getNextView}"
+						actionListener="#{dycheckoptionListMB.clear}">
+						<img src="images/icons/editar.png" border="0" />
+						<f:param name="id" value="#{bean.dychkId}" />
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

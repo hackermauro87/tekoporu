@@ -1,0 +1,142 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{viaticoEditMB.insert}"
+						rendered="#{!viaticoEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{viaticoEditMB.update}"
+						rendered="#{viaticoEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{viaticoEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{viaticoEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+			<p:panel header="#{messages['viatico.label']}" footer="">
+				<p:fieldset legend="#{messages['viatico.label.depsolicitante']}" toggleable="true" toggleSpeed="500">
+					<h:panelGrid id="parte1" columns="2">
+						<h:outputLabel value="#{messages['viatico.label.dependence']}: " for="dependence" styleClass="text-input" />
+						<p:selectOneMenu required="true" filter="true" requiredMessage="#{messages['message.required']}" value="#{viaticoEditMB.dependencia}">
+							<f:selectItem itemLabel="#{messages['selectonemenu.seleccione']}" itemValue="" />
+							<f:selectItems value="#{viaticoEditMB.listDependencias}" />
+						</p:selectOneMenu>				
+					</h:panelGrid>
+				</p:fieldset>	
+				<br /><br />
+				<p:fieldset legend="#{messages['viatico.label.funcionarios']}" toggleable="true" toggleSpeed="500">
+				<table cellpadding="10">
+					<tr style="vertical-align: middle;height: 100px;">
+						<td>
+							<h:outputLabel value="#{messages['viaticoDet.label.charge']}: " for="charge" styleClass="text-input" />
+						</td>
+						<td>
+							<p:selectOneMenu filter="true"  value="#{viaticoEditMB.cargo}">
+								<f:selectItem itemLabel="#{messages['selectonemenu.seleccione']}" itemValue="" />
+								<f:selectItems value="#{viaticoEditMB.listCharges}" />
+							</p:selectOneMenu>	
+						</td>
+						<td>
+							<h:outputLabel value="#{messages['viaticoDet.label.officer']}: " for="officer" styleClass="text-input" />
+						</td>
+						<td>
+							<p:selectOneMenu filter="true"  value="#{viaticoEditMB.funcionario}">
+								<f:selectItem itemLabel="#{messages['selectonemenu.seleccione']}" itemValue="" />
+								<f:selectItems value="#{viaticoEditMB.listOfficers}" />
+							</p:selectOneMenu>	 
+						</td>
+						<TD> 
+							<p:commandButton id="laputamadre" icon="ui-icon-plusthick" update="listafuncionarios" value="#{messages['viatico.button.add']}" actionListener="#{viaticoEditMB.addOfficerToList}"  />
+						</TD>
+					</tr>
+					<tr> 
+						<td colspan="4">	
+							<p:panel id="listafuncionarios" header="" footer="">
+							<p:dataTable var="vd" value="#{viaticoEditMB.listViaticoDet}" id="tableOfficers">  
+						        <p:column headerText="#{messages['viatico.tableofficers.cargo']}">  
+						            <h:outputText value="#{vd.charge.chaDesc}" />  
+						        </p:column>  
+						  
+						        <p:column headerText="#{messages['viatico.tableofficers.nombyape']}">  
+						            <h:outputText value="#{vd.officer.offName}" />  
+						        </p:column>  
+						  
+						        <p:column headerText="#{messages['viatico.tableofficers.ci']}">  
+						            <h:outputText value="#{vd.officer.offLastname}" />  
+						        </p:column>  
+						    </p:dataTable>  
+						    </p:panel>
+						</td>
+					</tr>
+				</table>
+					
+				</p:fieldset>
+				<br /><br />
+				
+				<h:panelGrid id="parte3" columns="3">	
+					
+					<h:outputLabel value="#{messages['viatico.label.viaDateoutput']}: " for="viaDateoutput" styleClass="text-input" />
+					<p:calendar id="viaDateoutput" value="#{viaticoEditMB.bean.viaDateoutput}"
+					   pattern="#{messages['label.date.pattern']}" navigator="true" showButtonPanel="true"
+					   locale="#{currentLocale}" title="#{messages['viatico.alt.viaDateoutput']}" />
+					<p:message for="viaDateoutput" />
+								
+					<h:outputLabel value="#{messages['viatico.label.viaDatereturn']}: " for="viaDatereturn" styleClass="text-input" />
+					<p:calendar id="viaDatereturn" value="#{viaticoEditMB.bean.viaDatereturn}"
+					   pattern="#{messages['label.date.pattern']}" navigator="true" showButtonPanel="true"
+					   locale="#{currentLocale}" title="#{messages['viatico.alt.viaDatereturn']}" />
+					<p:message for="viaDatereturn" />
+								
+					<h:outputLabel value="#{messages['viatico.label.viaDel']}: " for="viaDel" styleClass="text-input" />
+					<h:inputText id="viaDel" value="#{viaticoEditMB.bean.viaDel}"
+						title="#{messages['viatico.alt.viaDel']}" />
+					<p:message for="viaDel" />
+					
+					<h:outputLabel value="#{messages['viatico.label.viaFuel']}: " for="viaFuel" styleClass="text-input" />
+					<h:inputText id="viaFuel" value="#{viaticoEditMB.bean.viaFuel}"
+						title="#{messages['viatico.alt.viaFuel']}" />
+					<p:message for="viaFuel" />
+					
+					<h:outputLabel value="#{messages['viatico.label.viaKmRec']}: " for="viaKmRec" styleClass="text-input" />
+					<h:inputText id="viaKmRec" value="#{viaticoEditMB.bean.viaKmRec}"
+						title="#{messages['viatico.alt.viaKmRec']}" />
+					<p:message for="viaKmRec" />
+					
+					<h:outputLabel value="#{messages['viatico.label.viaTravelReason']}: " for="viaTravelReason" styleClass="text-input" />
+					<h:inputText id="viaTravelReason" value="#{viaticoEditMB.bean.viaTravelReason}"
+						title="#{messages['viatico.alt.viaTravelReason']}" />
+					<p:message for="viaTravelReason" />
+					
+					<h:outputLabel value="#{messages['viatico.label.viaVehicle']}: " for="viaVehicle" styleClass="text-input" />
+					<h:inputText id="viaVehicle" value="#{viaticoEditMB.bean.viaVehicle}"
+						title="#{messages['viatico.alt.viaVehicle']}" />
+					<p:message for="viaVehicle" />
+					
+					<h:outputLabel value="#{messages['viatico.label.department']}: " for="department" styleClass="text-input" />
+					<h:inputText id="department" value="#{viaticoEditMB.bean.department}"
+						title="#{messages['viatico.alt.department']}" />
+					<p:message for="department" />
+					
+					<h:outputLabel value="#{messages['viatico.label.document']}: " for="document" styleClass="text-input" />
+					<h:inputText id="document" value="#{viaticoEditMB.bean.document}"
+						title="#{messages['viatico.alt.document']}" />
+					<p:message for="document" />
+					
+					
+					
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

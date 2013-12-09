@@ -1,0 +1,123 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['button.new']}" image="ui-icon-document" action="#{viaticoListMB.getNextView}"
+						actionListener="#{viaticoListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['button.delete']}" image="ui-icon-trash" onclick="confirmation.show()"
+						type="button" immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{viaticoListMB.deleteSelection}"
+							actionListener="#{viaticoListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable id="list" var="bean" value="#{viaticoListMB.resultList}">
+				<f:facet name="header">#{messages['viatico.list.table.title']}</f:facet>
+				<p:column style="width:1%;">
+					<h:selectBooleanCheckbox value="#{viaticoListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
+				</p:column>
+				
+				<p:column sortBy="#{bean.viaId}">
+					<f:facet name="header">#{messages['viatico.label.viaId']}</f:facet>
+					<h:commandLink action="#{viaticoListMB.getNextView}" actionListener="#{viaticoListMB.clear}">
+						<h:outputText value="#{bean.viaId}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.viaDateoutput}">
+					<f:facet name="header">#{messages['viatico.label.viaDateoutput']}</f:facet>
+					<h:commandLink action="#{viaticoListMB.getNextView}" actionListener="#{viaticoListMB.clear}">
+						<h:outputText value="#{bean.viaDateoutput}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.viaDatereturn}">
+					<f:facet name="header">#{messages['viatico.label.viaDatereturn']}</f:facet>
+					<h:commandLink action="#{viaticoListMB.getNextView}" actionListener="#{viaticoListMB.clear}">
+						<h:outputText value="#{bean.viaDatereturn}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.viaDel}">
+					<f:facet name="header">#{messages['viatico.label.viaDel']}</f:facet>
+					<h:commandLink action="#{viaticoListMB.getNextView}" actionListener="#{viaticoListMB.clear}">
+						<h:outputText value="#{bean.viaDel}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.viaFuel}">
+					<f:facet name="header">#{messages['viatico.label.viaFuel']}</f:facet>
+					<h:commandLink action="#{viaticoListMB.getNextView}" actionListener="#{viaticoListMB.clear}">
+						<h:outputText value="#{bean.viaFuel}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.viaKmRec}">
+					<f:facet name="header">#{messages['viatico.label.viaKmRec']}</f:facet>
+					<h:commandLink action="#{viaticoListMB.getNextView}" actionListener="#{viaticoListMB.clear}">
+						<h:outputText value="#{bean.viaKmRec}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.viaTravelReason}">
+					<f:facet name="header">#{messages['viatico.label.viaTravelReason']}</f:facet>
+					<h:commandLink action="#{viaticoListMB.getNextView}" actionListener="#{viaticoListMB.clear}">
+						<h:outputText value="#{bean.viaTravelReason}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.viaVehicle}">
+					<f:facet name="header">#{messages['viatico.label.viaVehicle']}</f:facet>
+					<h:commandLink action="#{viaticoListMB.getNextView}" actionListener="#{viaticoListMB.clear}">
+						<h:outputText value="#{bean.viaVehicle}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.department}">
+					<f:facet name="header">#{messages['viatico.label.department']}</f:facet>
+					<h:commandLink action="#{viaticoListMB.getNextView}" actionListener="#{viaticoListMB.clear}">
+						<h:outputText value="#{bean.department}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.document}">
+					<f:facet name="header">#{messages['viatico.label.document']}</f:facet>
+					<h:commandLink action="#{viaticoListMB.getNextView}" actionListener="#{viaticoListMB.clear}">
+						<h:outputText value="#{bean.document}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.dependence}">
+					<f:facet name="header">#{messages['viatico.label.dependence']}</f:facet>
+					<h:commandLink action="#{viaticoListMB.getNextView}" actionListener="#{viaticoListMB.clear}">
+						<h:outputText value="#{bean.dependence}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

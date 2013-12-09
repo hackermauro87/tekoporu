@@ -1,0 +1,55 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{buttonruteoEditMB.insert}"
+						rendered="#{!buttonruteoEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{buttonruteoEditMB.update}"
+						rendered="#{buttonruteoEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{buttonruteoEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{buttonruteoEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['buttonruteo.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fields" columns="3">
+					
+					<h:outputLabel value="#{messages['buttonruteo.label.buttonruteoId']}: " for="buttonruteoId" styleClass="text-input" />
+					<h:inputText id="buttonruteoId" value="#{buttonruteoEditMB.bean.buttonruteoId}"
+						title="#{messages['buttonruteo.alt.buttonruteoId']}" />
+					<p:message for="buttonruteoId" />
+					
+					<h:outputLabel value="#{messages['buttonruteo.label.buttonruteoDel']}: " for="buttonruteoDel" styleClass="text-input" />
+					<h:inputText id="buttonruteoDel" value="#{buttonruteoEditMB.bean.buttonruteoDel}"
+						title="#{messages['buttonruteo.alt.buttonruteoDel']}" />
+					<p:message for="buttonruteoDel" />
+					
+					<h:outputLabel value="#{messages['buttonruteo.label.dybutton']}: " for="dybutton" styleClass="text-input" />
+					<h:inputText id="dybutton" value="#{buttonruteoEditMB.bean.dybutton}"
+						title="#{messages['buttonruteo.alt.dybutton']}" />
+					<p:message for="dybutton" />
+					
+					<h:outputLabel value="#{messages['buttonruteo.label.routing']}: " for="routing" styleClass="text-input" />
+					<h:inputText id="routing" value="#{buttonruteoEditMB.bean.routing}"
+						title="#{messages['buttonruteo.alt.routing']}" />
+					<p:message for="routing" />
+					
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

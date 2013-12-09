@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Login</title>
+	<link type="text/css" rel="stylesheet" href="css/styles.css" />
+</h:head>
+
+<f:view contentType="text/html" locale="#currentLocale" />
+
+<h:body style="background-color:#f1f1f1">
+	<h:form name="form">
+		<p:messages id="mensaje" showDetail="false" autoUpdate="true"
+			closable="true" />
+		<table style="width: 100%">
+			<tr>
+				<td height="70" width="100%" align="left"></td>
+			</tr>
+
+			<tr>
+				<td height="20" colspan="2"><p:panel id="panel"
+						style="margin-bottom:10px;">
+						<p style="text-align: center;">
+							<font color="#555555">ACCESO AL SISTEMA WORKFLOW</font>
+						</p>
+					</p:panel>
+				</td>
+			</tr>
+
+			<tr valign="top">
+				<td height="200" colspan="2" align="center"><p:focus
+						context="panelgrid" /> <h:panelGrid
+						style="background-color:#f1f1f1" id="panelgrid" cellpadding="5"
+						rows="3" columns="2">
+
+						<h:outputLabel for="username" value="Usuario:"
+							styleClass="text-input" />
+						<h:inputText value="#{credential.username}" id="username"
+							required="true" label="username" styleClass="text-input" />
+
+						<h:outputLabel for="password" value="Contraseña:"
+							styleClass="text-input" />
+						<h:inputSecret value="#{credential.password}" id="password"
+							required="true" label="password" styleClass="text-input" />
+						
+						<h:outputText value="admin" />
+						<h:outputText value="secret" />
+
+						<h:outputText value="guest" />
+						<h:outputText value="guest" />
+						
+						
+						
+						<p:spacer />
+						<p:spacer />
+
+						<p:spacer />
+						<p:spacer />
+
+
+						<f:facet name="footer">
+							<h:commandButton id="loginButton" value="Aceptar"
+								action="#{securityContext.login()}" style="align:center;" />
+							<br> <br> </br> </br>
+
+						</f:facet>
+
+					</h:panelGrid>
+				</td>
+			</tr>
+		</table>
+	</h:form>
+</h:body>
+</html>

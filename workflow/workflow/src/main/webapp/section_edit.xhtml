@@ -1,0 +1,50 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{sectionEditMB.insert}"
+						rendered="#{!sectionEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{sectionEditMB.update}"
+						rendered="#{sectionEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{sectionEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{sectionEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+					<p:commandButton value="#{messages['button.cancel']}" type="button" onclick="location.href='section_list.jsf'" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['section.label']}" toggleable="true" toggleSpeed="500">
+			<p:focus context="fields" />
+				<h:panelGrid id="fields" columns="3">
+					<h:outputLabel value="#{messages['section.label.secDesc']}: " for="secDesc" styleClass="text-input" />
+					<h:inputText onfocus="setAllSelected(this.id)" id="secDesc" value="#{sectionEditMB.bean.secDesc}"
+						title="#{messages['section.alt.secDesc']}"  required="true" requiredMessage="#{messages['message.required']}" />
+					<p:message for="secDesc" />
+					
+					<h:outputLabel value="#{messages['section.label.dependencia']}: "
+						for="dependence" styleClass="text-input" />
+					<p:selectOneMenu filter="true" required="true"
+						requiredMessage="#{messages['message.required']}"
+						value="#{sectionEditMB.depenId}">
+						<f:selectItem itemLabel="#{messages['selectonemenu.seleccione']}"
+							itemValue="" />
+						<f:selectItems value="#{sectionEditMB.selectOneItemDependence}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

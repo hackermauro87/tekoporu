@@ -1,0 +1,128 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<link type="text/css" rel="stylesheet" href="css/style.css" />
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['button.new']}"
+						image="ui-icon-document" action="#{officerListMB.getNextView}"
+						actionListener="#{officerListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['button.delete']}"
+						image="ui-icon-trash" onclick="confirmation.show()" type="button"
+						immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert"
+						widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{officerListMB.deleteSelection}"
+							actionListener="#{officerListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.no']}"
+							onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable id="list" var="bean" value="#{officerListMB.resultList}"
+				rows="5" paginator="true" lazy="true">
+				<f:facet name="header">#{messages['officer.list.table.title']}</f:facet>
+				<p:column style="width:1%;">
+					<h:selectBooleanCheckbox
+						value="#{officerListMB.selection[bean.offId]}"></h:selectBooleanCheckbox>
+				</p:column>
+
+				<p:column sortBy="#{bean.offCi}">
+					<f:facet name="header">#{messages['officer.label.offCi']}</f:facet>
+
+					<h:outputText value="#{bean.offCi}" styleClass="texto" />
+					<f:param name="id" value="#{bean.offId}" />
+
+				</p:column>
+
+				<p:column sortBy="#{bean.offName}">
+					<f:facet name="header">#{messages['officer.label.offName']}</f:facet>
+
+					<h:outputText value="#{bean.offName}" styleClass="texto" />
+					<f:param name="id" value="#{bean.offId}" />
+
+				</p:column>
+
+				<p:column sortBy="#{bean.offLastname}">
+					<f:facet name="header">#{messages['officer.label.offLastname']}</f:facet>
+
+					<h:outputText value="#{bean.offLastname}" styleClass="texto" />
+					<f:param name="id" value="#{bean.offId}" />
+
+				</p:column>
+
+				<p:column sortBy="#{bean.offAddress}">
+					<f:facet name="header">#{messages['officer.label.offAddress']}</f:facet>
+
+					<h:outputText value="#{bean.offAddress}" styleClass="texto" />
+					<f:param name="id" value="#{bean.offId}" />
+
+				</p:column>
+
+				<p:column sortBy="#{bean.offPhone}">
+					<f:facet name="header">#{messages['officer.label.telefono']}</f:facet>
+
+					<h:outputText value="#{bean.offPhone}" styleClass="texto" />
+					<f:param name="id" value="#{bean.offId}" />
+
+				</p:column>
+
+				<p:column sortBy="#{bean.offEmail}">
+					<f:facet name="header">#{messages['officer.label.offEmail']}</f:facet>
+
+					<h:outputText value="#{bean.offEmail}" styleClass="texto" />
+					<f:param name="id" value="#{bean.offId}" />
+
+				</p:column>
+
+				<p:column sortBy="#{bean.offFechanac}">
+					<f:facet name="header">#{messages['officer.label.offFechanac']}</f:facet>
+
+					<h:outputText value="#{bean.offFechanac}" styleClass="texto" />
+					<f:param name="id" value="#{bean.offId}" />
+
+				</p:column>
+
+				<p:column sortBy="#{bean.section}">
+					<f:facet name="header">#{messages['officer.label.seccion']}</f:facet>
+
+					<h:outputText value="#{bean.section.secDesc}" styleClass="texto" />
+					<f:param name="id" value="#{bean.offId}" />
+
+				</p:column>
+
+				<p:column sortBy="#{bean.charge}">
+					<f:facet name="header">#{messages['officer.label.cargo']}</f:facet>
+
+					<h:outputText value="#{bean.charge.chaDesc}" styleClass="texto" />
+					<f:param name="id" value="#{bean.offId}" />
+
+				</p:column>
+
+				<p:column style="text-align:center">
+					<f:facet name="header">#{messages['officer.label.editar']}</f:facet>
+					<h:commandLink action="#{officerListMB.getNextView}"
+						actionListener="#{officerListMB.clear}">
+						<img src="images/icons/editar.png" border="0" />
+						<f:param name="id" value="#{bean.offId}" />
+						<f:param name="SectionId" value="#{bean.section.secId}" />
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

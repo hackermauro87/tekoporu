@@ -1,0 +1,71 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{documentEditMB.insert}"
+						rendered="#{!documentEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{documentEditMB.update}"
+						rendered="#{documentEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{documentEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{documentEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['document.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fields" columns="3">
+					
+					<h:outputLabel value="#{messages['document.label.docId']}: " for="docId" styleClass="text-input" />
+					<h:inputText id="docId" value="#{documentEditMB.bean.docId}"
+						title="#{messages['document.alt.docId']}" />
+					<p:message for="docId" />
+					
+					<h:outputLabel value="#{messages['document.label.docDel']}: " for="docDel" styleClass="text-input" />
+					<h:inputText id="docDel" value="#{documentEditMB.bean.docDel}"
+						title="#{messages['document.alt.docDel']}" />
+					<p:message for="docDel" />
+					
+					<h:outputLabel value="#{messages['document.label.docFecha']}: " for="docFecha" styleClass="text-input" />
+					<p:calendar id="docFecha" value="#{documentEditMB.bean.docFecha}"
+					   pattern="#{messages['label.date.pattern']}" navigator="true" showButtonPanel="true"
+					   locale="#{currentLocale}" title="#{messages['document.alt.docFecha']}" />
+					<p:message for="docFecha" />
+								
+					<h:outputLabel value="#{messages['document.label.docHora']}: " for="docHora" styleClass="text-input" />
+					<h:inputText id="docHora" value="#{documentEditMB.bean.docHora}"
+						title="#{messages['document.alt.docHora']}" />
+					<p:message for="docHora" />
+					
+					<h:outputLabel value="#{messages['document.label.docState']}: " for="docState" styleClass="text-input" />
+					<h:inputText id="docState" value="#{documentEditMB.bean.docState}"
+						title="#{messages['document.alt.docState']}" />
+					<p:message for="docState" />
+					
+					<h:outputLabel value="#{messages['document.label.documenttype']}: " for="documenttype" styleClass="text-input" />
+					<h:inputText id="documenttype" value="#{documentEditMB.bean.documenttype}"
+						title="#{messages['document.alt.documenttype']}" />
+					<p:message for="documenttype" />
+					
+					<h:outputLabel value="#{messages['document.label.user']}: " for="user" styleClass="text-input" />
+					<h:inputText id="user" value="#{documentEditMB.bean.user}"
+						title="#{messages['document.alt.user']}" />
+					<p:message for="user" />
+					
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

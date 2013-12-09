@@ -1,0 +1,75 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['button.new']}" image="ui-icon-document" action="#{dybuttonListMB.getNextView}"
+						actionListener="#{dybuttonListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['button.delete']}" image="ui-icon-trash" onclick="confirmation.show()"
+						type="button" immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{dybuttonListMB.deleteSelection}"
+							actionListener="#{dybuttonListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable id="list" var="bean" value="#{dybuttonListMB.resultList}">
+				<f:facet name="header">#{messages['dybutton.list.table.title']}</f:facet>
+				<p:column style="width:1%;">
+					<h:selectBooleanCheckbox value="#{dybuttonListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
+				</p:column>
+				
+				<p:column sortBy="#{bean.dybId}">
+					<f:facet name="header">#{messages['dybutton.label.dybId']}</f:facet>
+					<h:commandLink action="#{dybuttonListMB.getNextView}" actionListener="#{dybuttonListMB.clear}">
+						<h:outputText value="#{bean.dybId}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.dybDel}">
+					<f:facet name="header">#{messages['dybutton.label.dybDel']}</f:facet>
+					<h:commandLink action="#{dybuttonListMB.getNextView}" actionListener="#{dybuttonListMB.clear}">
+						<h:outputText value="#{bean.dybDel}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.dybDesc}">
+					<f:facet name="header">#{messages['dybutton.label.dybDesc']}</f:facet>
+					<h:commandLink action="#{dybuttonListMB.getNextView}" actionListener="#{dybuttonListMB.clear}">
+						<h:outputText value="#{bean.dybDesc}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.dybLabel}">
+					<f:facet name="header">#{messages['dybutton.label.dybLabel']}</f:facet>
+					<h:commandLink action="#{dybuttonListMB.getNextView}" actionListener="#{dybuttonListMB.clear}">
+						<h:outputText value="#{bean.dybLabel}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.dybType}">
+					<f:facet name="header">#{messages['dybutton.label.dybType']}</f:facet>
+					<h:commandLink action="#{dybuttonListMB.getNextView}" actionListener="#{dybuttonListMB.clear}">
+						<h:outputText value="#{bean.dybType}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

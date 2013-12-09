@@ -1,0 +1,50 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{docAccessEditMB.insert}"
+						rendered="#{!docAccessEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{docAccessEditMB.update}"
+						rendered="#{docAccessEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{docAccessEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{docAccessEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['docAccess.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fields" columns="3">
+					
+					<h:outputLabel value="#{messages['docAccess.label.accId']}: " for="accId" styleClass="text-input" />
+					<h:inputText id="accId" value="#{docAccessEditMB.bean.accId}"
+						title="#{messages['docAccess.alt.accId']}" />
+					<p:message for="accId" />
+					
+					<h:outputLabel value="#{messages['docAccess.label.document']}: " for="document" styleClass="text-input" />
+					<h:inputText id="document" value="#{docAccessEditMB.bean.document}"
+						title="#{messages['docAccess.alt.document']}" />
+					<p:message for="document" />
+					
+					<h:outputLabel value="#{messages['docAccess.label.user']}: " for="user" styleClass="text-input" />
+					<h:inputText id="user" value="#{docAccessEditMB.bean.user}"
+						title="#{messages['docAccess.alt.user']}" />
+					<p:message for="user" />
+					
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

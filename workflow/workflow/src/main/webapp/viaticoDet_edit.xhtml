@@ -1,0 +1,55 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{viaticoDetEditMB.insert}"
+						rendered="#{!viaticoDetEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{viaticoDetEditMB.update}"
+						rendered="#{viaticoDetEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{viaticoDetEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{viaticoDetEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['viaticoDet.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fields" columns="3">
+					
+					<h:outputLabel value="#{messages['viaticoDet.label.viaDetId']}: " for="viaDetId" styleClass="text-input" />
+					<h:inputText id="viaDetId" value="#{viaticoDetEditMB.bean.viaDetId}"
+						title="#{messages['viaticoDet.alt.viaDetId']}" />
+					<p:message for="viaDetId" />
+					
+					<h:outputLabel value="#{messages['viaticoDet.label.charge']}: " for="charge" styleClass="text-input" />
+					<h:inputText id="charge" value="#{viaticoDetEditMB.bean.charge}"
+						title="#{messages['viaticoDet.alt.charge']}" />
+					<p:message for="charge" />
+					
+					<h:outputLabel value="#{messages['viaticoDet.label.officer']}: " for="officer" styleClass="text-input" />
+					<h:inputText id="officer" value="#{viaticoDetEditMB.bean.officer}"
+						title="#{messages['viaticoDet.alt.officer']}" />
+					<p:message for="officer" />
+					
+					<h:outputLabel value="#{messages['viaticoDet.label.viatico']}: " for="viatico" styleClass="text-input" />
+					<h:inputText id="viatico" value="#{viaticoDetEditMB.bean.viatico}"
+						title="#{messages['viaticoDet.alt.viatico']}" />
+					<p:message for="viatico" />
+					
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

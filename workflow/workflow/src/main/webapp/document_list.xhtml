@@ -1,0 +1,91 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['button.new']}" image="ui-icon-document" action="#{documentListMB.getNextView}"
+						actionListener="#{documentListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['button.delete']}" image="ui-icon-trash" onclick="confirmation.show()"
+						type="button" immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{documentListMB.deleteSelection}"
+							actionListener="#{documentListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable id="list" var="bean" value="#{documentListMB.resultList}">
+				<f:facet name="header">#{messages['document.list.table.title']}</f:facet>
+				<p:column style="width:1%;">
+					<h:selectBooleanCheckbox value="#{documentListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
+				</p:column>
+				
+				<p:column sortBy="#{bean.docId}">
+					<f:facet name="header">#{messages['document.label.docId']}</f:facet>
+					<h:commandLink action="#{documentListMB.getNextView}" actionListener="#{documentListMB.clear}">
+						<h:outputText value="#{bean.docId}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.docDel}">
+					<f:facet name="header">#{messages['document.label.docDel']}</f:facet>
+					<h:commandLink action="#{documentListMB.getNextView}" actionListener="#{documentListMB.clear}">
+						<h:outputText value="#{bean.docDel}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.docFecha}">
+					<f:facet name="header">#{messages['document.label.docFecha']}</f:facet>
+					<h:commandLink action="#{documentListMB.getNextView}" actionListener="#{documentListMB.clear}">
+						<h:outputText value="#{bean.docFecha}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.docHora}">
+					<f:facet name="header">#{messages['document.label.docHora']}</f:facet>
+					<h:commandLink action="#{documentListMB.getNextView}" actionListener="#{documentListMB.clear}">
+						<h:outputText value="#{bean.docHora}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.docState}">
+					<f:facet name="header">#{messages['document.label.docState']}</f:facet>
+					<h:commandLink action="#{documentListMB.getNextView}" actionListener="#{documentListMB.clear}">
+						<h:outputText value="#{bean.docState}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.documenttype}">
+					<f:facet name="header">#{messages['document.label.documenttype']}</f:facet>
+					<h:commandLink action="#{documentListMB.getNextView}" actionListener="#{documentListMB.clear}">
+						<h:outputText value="#{bean.documenttype}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.user}">
+					<f:facet name="header">#{messages['document.label.user']}</f:facet>
+					<h:commandLink action="#{documentListMB.getNextView}" actionListener="#{documentListMB.clear}">
+						<h:outputText value="#{bean.user}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

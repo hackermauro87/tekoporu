@@ -1,0 +1,79 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{userEditMB.insert}" rendered="#{!userEditMB.updateMode}"
+						ajax="false" />
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{userEditMB.update}" rendered="#{userEditMB.updateMode}"
+						ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}"
+						onclick="confirmation.show()" rendered="#{userEditMB.updateMode}"
+						type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert"
+						widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{userEditMB.delete}" immediate="true" ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}"
+							onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+					<p:commandButton value="#{messages['button.cancel']}" type="button"
+						onclick="location.href='user_list.jsf'" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['user.label']}" toggleable="true"
+				toggleSpeed="500">
+				<h:panelGrid id="fields" columns="3">
+
+					<h:outputLabel value="#{messages['user.label.userName']}: "
+						for="userName" styleClass="text-input" />
+					<h:inputText onfocus="setAllSelected(this.id)" id="userName" value="#{userEditMB.bean.userNick}"
+						title="#{messages['user.alt.userName']}" />
+					<p:message for="userName" />
+
+					<h:outputLabel value="#{messages['user.label.userPwd']}: "
+						for="userPwd" styleClass="text-input" />
+					<h:inputSecret onfocus="setAllSelected(this.id)" id="userPwd" value="#{userEditMB.bean.userPwd}"
+						title="#{messages['user.alt.userPwd']}" />
+					<p:message for="userPwd" />
+
+					<h:outputLabel value="#{messages['user.label.officer']}:"
+						for="funcionario" styleClass="text-input" />
+					<p:selectOneMenu required="true"
+						requiredMessage="#{messages['message.required']}"
+						value="#{userEditMB.officerId}" filter="true">
+						<f:selectItem itemLabel="#{messages['selectonemenu.seleccione']}"
+							itemValue="" />
+						<f:selectItems value="#{userEditMB.selectItemOfficer}" />
+					</p:selectOneMenu>
+					<br />
+					<h:outputLabel value="#{messages['user.label.rol']}: " for="rol"
+						styleClass="text-input" />
+					<p:selectOneMenu required="true"
+						requiredMessage="#{messages['message.required']}"
+						value="#{userEditMB.rolId}">
+						<f:selectItem itemLabel="#{messages['selectonemenu.seleccione']}"
+							itemValue="" />
+						<f:selectItems value="#{userEditMB.selectOneItemSection}" />
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

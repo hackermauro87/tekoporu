@@ -1,0 +1,60 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{checkEditMB.insert}"
+						rendered="#{!checkEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{checkEditMB.update}"
+						rendered="#{checkEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{checkEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{checkEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['check.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fields" columns="3">
+					
+					<h:outputLabel value="#{messages['check.label.chkId']}: " for="chkId" styleClass="text-input" />
+					<h:inputText id="chkId" value="#{checkEditMB.bean.chkId}"
+						title="#{messages['check.alt.chkId']}" />
+					<p:message for="chkId" />
+					
+					<h:outputLabel value="#{messages['check.label.chkChecked']}: " for="chkChecked" styleClass="text-input" />
+					<h:inputText id="chkChecked" value="#{checkEditMB.bean.chkChecked}"
+						title="#{messages['check.alt.chkChecked']}" />
+					<p:message for="chkChecked" />
+					
+					<h:outputLabel value="#{messages['check.label.chkDel']}: " for="chkDel" styleClass="text-input" />
+					<h:inputText id="chkDel" value="#{checkEditMB.bean.chkDel}"
+						title="#{messages['check.alt.chkDel']}" />
+					<p:message for="chkDel" />
+					
+					<h:outputLabel value="#{messages['check.label.dycheckoption']}: " for="dycheckoption" styleClass="text-input" />
+					<h:inputText id="dycheckoption" value="#{checkEditMB.bean.dycheckoption}"
+						title="#{messages['check.alt.dycheckoption']}" />
+					<p:message for="dycheckoption" />
+					
+					<h:outputLabel value="#{messages['check.label.routing']}: " for="routing" styleClass="text-input" />
+					<h:inputText id="routing" value="#{checkEditMB.bean.routing}"
+						title="#{messages['check.alt.routing']}" />
+					<p:message for="routing" />
+					
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

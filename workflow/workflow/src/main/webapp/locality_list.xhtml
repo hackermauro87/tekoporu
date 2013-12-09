@@ -1,0 +1,68 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<link type="text/css" rel="stylesheet" href="css/style.css" />
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['button.new']}"
+						image="ui-icon-document" action="#{localityListMB.getNextView}"
+						actionListener="#{localityListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['button.delete']}"
+						image="ui-icon-trash" onclick="confirmation.show()" type="button"
+						immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert"
+						widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{localityListMB.deleteSelection}"
+							actionListener="#{localityListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.no']}"
+							onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable id="list" var="bean"
+				value="#{localityListMB.resultList}" rows="5" paginator="true"
+				lazy="true">
+				<f:facet name="header">#{messages['locality.list.table.title']}</f:facet>
+				<p:column style="width:1%;">
+					<h:selectBooleanCheckbox
+						value="#{localityListMB.selection[bean.locId]}"></h:selectBooleanCheckbox>
+				</p:column>
+
+				<p:column sortBy="#{bean.locDesc}">
+					<f:facet name="header">#{messages['locality.label.locDesc']}</f:facet>
+					<h:outputText value="#{bean.locDesc}" styleClass="texto" />
+				</p:column>
+
+				<p:column sortBy="#{bean.city}">
+					<f:facet name="header">#{messages['locality.label.city']}</f:facet>
+					<h:outputText value="#{bean.city.citDesc}" styleClass="texto" />
+					<f:param name="id" value="#{bean.locId}" />
+				</p:column>
+
+				<p:column style="text-align:center">
+					<f:facet name="header">#{messages['locality.label.editar']}</f:facet>
+					<h:commandLink action="#{localityListMB.getNextView}"
+						actionListener="#{localityListMB.clear}">
+						<img src="images/icons/editar.png" border="0" />
+						<f:param name="id" value="#{bean.locId}" />
+					</h:commandLink>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,60 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{notificationEditMB.insert}"
+						rendered="#{!notificationEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{notificationEditMB.update}"
+						rendered="#{notificationEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{notificationEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{notificationEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['notification.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fields" columns="3">
+					
+					<h:outputLabel value="#{messages['notification.label.notId']}: " for="notId" styleClass="text-input" />
+					<h:inputText id="notId" value="#{notificationEditMB.bean.notId}"
+						title="#{messages['notification.alt.notId']}" />
+					<p:message for="notId" />
+					
+					<h:outputLabel value="#{messages['notification.label.notDel']}: " for="notDel" styleClass="text-input" />
+					<h:inputText id="notDel" value="#{notificationEditMB.bean.notDel}"
+						title="#{messages['notification.alt.notDel']}" />
+					<p:message for="notDel" />
+					
+					<h:outputLabel value="#{messages['notification.label.notDesc']}: " for="notDesc" styleClass="text-input" />
+					<h:inputText id="notDesc" value="#{notificationEditMB.bean.notDesc}"
+						title="#{messages['notification.alt.notDesc']}" />
+					<p:message for="notDesc" />
+					
+					<h:outputLabel value="#{messages['notification.label.routing']}: " for="routing" styleClass="text-input" />
+					<h:inputText id="routing" value="#{notificationEditMB.bean.routing}"
+						title="#{messages['notification.alt.routing']}" />
+					<p:message for="routing" />
+					
+					<h:outputLabel value="#{messages['notification.label.user']}: " for="user" styleClass="text-input" />
+					<h:inputText id="user" value="#{notificationEditMB.bean.user}"
+						title="#{messages['notification.alt.user']}" />
+					<p:message for="user" />
+					
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

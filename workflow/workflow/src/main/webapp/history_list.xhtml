@@ -1,0 +1,83 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['button.new']}" image="ui-icon-document" action="#{historyListMB.getNextView}"
+						actionListener="#{historyListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['button.delete']}" image="ui-icon-trash" onclick="confirmation.show()"
+						type="button" immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{historyListMB.deleteSelection}"
+							actionListener="#{historyListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable id="list" var="bean" value="#{historyListMB.resultList}">
+				<f:facet name="header">#{messages['history.list.table.title']}</f:facet>
+				<p:column style="width:1%;">
+					<h:selectBooleanCheckbox value="#{historyListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
+				</p:column>
+				
+				<p:column sortBy="#{bean.hisId}">
+					<f:facet name="header">#{messages['history.label.hisId']}</f:facet>
+					<h:commandLink action="#{historyListMB.getNextView}" actionListener="#{historyListMB.clear}">
+						<h:outputText value="#{bean.hisId}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.hisDate}">
+					<f:facet name="header">#{messages['history.label.hisDate']}</f:facet>
+					<h:commandLink action="#{historyListMB.getNextView}" actionListener="#{historyListMB.clear}">
+						<h:outputText value="#{bean.hisDate}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.hisDel}">
+					<f:facet name="header">#{messages['history.label.hisDel']}</f:facet>
+					<h:commandLink action="#{historyListMB.getNextView}" actionListener="#{historyListMB.clear}">
+						<h:outputText value="#{bean.hisDel}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.hisDesc}">
+					<f:facet name="header">#{messages['history.label.hisDesc']}</f:facet>
+					<h:commandLink action="#{historyListMB.getNextView}" actionListener="#{historyListMB.clear}">
+						<h:outputText value="#{bean.hisDesc}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.hisTime}">
+					<f:facet name="header">#{messages['history.label.hisTime']}</f:facet>
+					<h:commandLink action="#{historyListMB.getNextView}" actionListener="#{historyListMB.clear}">
+						<h:outputText value="#{bean.hisTime}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+				<p:column sortBy="#{bean.document}">
+					<f:facet name="header">#{messages['history.label.document']}</f:facet>
+					<h:commandLink action="#{historyListMB.getNextView}" actionListener="#{historyListMB.clear}">
+						<h:outputText value="#{bean.document}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+						
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

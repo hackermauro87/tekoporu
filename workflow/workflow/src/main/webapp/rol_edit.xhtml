@@ -1,0 +1,57 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{rolEditMB.insert}" rendered="#{!rolEditMB.updateMode}"
+						ajax="false" />
+
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{rolEditMB.update}" rendered="#{rolEditMB.updateMode}"
+						ajax="false" />
+
+					<p:commandButton value="#{messages['button.delete']}"
+						onclick="confirmation.show()" rendered="#{rolEditMB.updateMode}"
+						type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert"
+						widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{rolEditMB.delete}" immediate="true" ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}"
+							onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+
+					<p:commandButton value="#{messages['button.cancel']}" type="button"
+						onclick="location.href='rol_list.jsf'" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['rol.label']}" toggleable="true"
+				toggleSpeed="500">
+				<p:focus context="fields" />
+				<h:panelGrid id="fields" columns="3">
+					<h:outputLabel value="#{messages['rol.label.rolDesc']}: "
+						for="rolDesc" styleClass="text-input" />
+					<h:inputText onfocus="setAllSelected(this.id)" id="rolDesc" value="#{rolEditMB.bean.rolDesc}"
+						required="true" requiredMessage="#{messages['message.required']}"
+						title="#{messages['rol.alt.rolDesc']}" />
+					<p:message for="rolDesc" />
+
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

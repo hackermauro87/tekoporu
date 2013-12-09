@@ -1,0 +1,103 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{routingEditMB.insert}"
+						rendered="#{!routingEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{routingEditMB.update}"
+						rendered="#{routingEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{routingEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{routingEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+					<p:commandButton value="#{messages['button.cancel']}" type="button"
+						onclick="location.href='routing_list.jsf'" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+		
+			<table width="100%">
+				<TR>
+					<td width="50%">
+						<p:fieldset legend="#{messages['routing.label']}" toggleable="true" toggleSpeed="500">
+							<h:panelGrid id="fields" columns="3" style="height:245px; vertical-align:text-top;">
+								
+								<h:outputLabel value="#{messages['routing.label.rouDesc']}: " for="rouDesc" styleClass="text-input" />
+								<h:inputText required="true" requiredMessage="#{messages['message.required']}" id="rouDesc" value="#{routingEditMB.bean.rouDesc}"
+									title="#{messages['routing.alt.rouDesc']}" />
+								<p:message for="rouDesc" />
+								
+								<h:outputLabel value="#{messages['routing.label.posOrigin']}: " for="posOrigin" styleClass="text-input" />
+								<h:inputText required="true" requiredMessage="#{messages['message.required']}" id="posOrigin" value="#{routingEditMB.bean.posOrigin}"
+									title="#{messages['routing.alt.posOrigin']}" />
+								<p:message for="posOrigin" />
+								
+								
+								<h:outputLabel value="#{messages['routing.label.posDestination']}: " for="posDestination" styleClass="text-input" />
+								<h:inputText required="true" requiredMessage="#{messages['message.required']}" id="posDestination" value="#{routingEditMB.bean.posDestination}"
+									title="#{messages['routing.alt.posDestination']}" />
+								<p:message for="posDestination" />
+													
+							</h:panelGrid>
+						</p:fieldset>
+					</td>
+					<td width="50%">
+						<p:fieldset legend="#{messages['routing.label.notificar']}" toggleable="true" toggleSpeed="500">
+							<h:panelGrid id="fields0" columns="3">
+								
+								<p:pickList id="pickList0" converter="PLusersConverter"  value="#{routingEditMB.uindb}" var="us" itemLabel="#{us.userNick}" itemValue="#{us}" >
+							    	<f:facet name="sourceCaption">#{messages['routing.label.disponibles']}</f:facet>  
+			        				<f:facet name="targetCaption">#{messages['routing.label.agregados']}</f:facet> 
+							    </p:pickList>  
+								
+								
+							</h:panelGrid>
+						</p:fieldset>
+					</td>
+				</TR>
+			</table>
+			<br />
+			<table width="100%">
+				<TR>
+					<td width="50%">
+						<p:fieldset legend="#{messages['routing.label.botones']}" toggleable="true" toggleSpeed="500">
+							<h:panelGrid id="fields1" columns="3">
+								
+								<p:pickList  converter="PLbuttonsConverter" id="pickList" value="#{routingEditMB.bindb}" var="dynb" itemLabel="#{dynb.dybLabel}" itemValue="#{dynb}" >
+							    	<f:facet name="sourceCaption">#{messages['routing.label.disponibles']}</f:facet>  
+			        				<f:facet name="targetCaption">#{messages['routing.label.agregados']}</f:facet>
+							    </p:pickList>  
+								
+								
+							</h:panelGrid>
+						</p:fieldset>
+					</td>
+					<td width="50%">
+						<p:fieldset legend="#{messages['routing.label.checks']}" toggleable="true" toggleSpeed="500">
+							<h:panelGrid id="fields2" columns="3">
+								
+								<p:pickList id="pickList2" converter="PLchecksConverter"  value="#{routingEditMB.cindb}" var="chk" itemLabel="#{chk.dychkDesc}" itemValue="#{chk}" >
+							    	<f:facet name="sourceCaption">#{messages['routing.label.disponibles']}</f:facet>  
+			        				<f:facet name="targetCaption">#{messages['routing.label.agregados']}</f:facet> 
+							    </p:pickList>  
+							</h:panelGrid>
+						</p:fieldset>
+					</td>
+				</TR>
+			</table>
+			
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

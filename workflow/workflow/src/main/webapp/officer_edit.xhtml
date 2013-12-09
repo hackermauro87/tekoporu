@@ -1,0 +1,124 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{officerEditMB.insert}"
+						rendered="#{!officerEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{officerEditMB.update}"
+						rendered="#{officerEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}"
+						onclick="confirmation.show()"
+						rendered="#{officerEditMB.updateMode}" type="button"
+						immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert"
+						widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{officerEditMB.delete}" immediate="true" ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}"
+							onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+					<p:commandButton value="#{messages['button.cancel']}" type="button"
+						onclick="location.href='officer_list.jsf'" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['officer.label']}" toggleable="true"
+				toggleSpeed="500">
+				<h:panelGrid id="fields" columns="3">
+
+					<h:outputLabel value="#{messages['officer.label.offCi']}: "
+						for="offCi" styleClass="text-input" />
+					<h:inputText onfocus="setAllSelected(this.id)" required="true"
+						requiredMessage="#{messages['message.required']}" id="offCi"
+						value="#{officerEditMB.bean.offCi}"
+						title="#{messages['officer.alt.offCi']}" />
+					<p:message for="offCi" />
+
+
+					<h:outputLabel value="#{messages['officer.label.offName']}: "
+						for="offName" styleClass="text-input" />
+					<h:inputText onfocus="setAllSelected(this.id)" required="true"
+						requiredMessage="#{messages['message.required']}" id="offName"
+						value="#{officerEditMB.bean.offName}"
+						title="#{messages['officer.alt.offName']}" />
+					<p:message for="offName" />
+
+
+					<h:outputLabel value="#{messages['officer.label.offLastname']}: "
+						for="offLastname" styleClass="text-input" />
+					<h:inputText onfocus="setAllSelected(this.id)" required="true"
+						requiredMessage="#{messages['message.required']}" id="offLastname"
+						value="#{officerEditMB.bean.offLastname}"
+						title="#{messages['officer.alt.offLastname']}" />
+					<p:message for="offLastname" />
+
+
+					<h:outputLabel value="#{messages['officer.label.offAddress']}: "
+						for="offAddress" styleClass="text-input" />
+					<h:inputText onfocus="setAllSelected(this.id)" id="offAddress"
+						value="#{officerEditMB.bean.offAddress}"
+						title="#{messages['officer.alt.offAddress']}" />
+					<p:message for="offAddress" />
+
+					<h:outputLabel value="#{messages['officer.label.telefono']}: "
+						for="offPhone" styleClass="text-input" />
+					<h:inputText onfocus="setAllSelected(this.id)" id="offPhone"
+						value="#{officerEditMB.bean.offPhone}"
+						title="#{messages['officer.label.telefono']}" />
+					<p:message for="offPhone" />
+
+					<h:outputLabel value="#{messages['officer.label.offEmail']}: "
+						for="offEmail" styleClass="text-input" />
+					<h:inputText onfocus="setAllSelected(this.id)" id="offEmail"
+						value="#{officerEditMB.bean.offEmail}"
+						title="#{messages['officer.alt.offEmail']}" />
+					<p:message for="offEmail" />
+
+					<h:outputLabel value="#{messages['officer.label.offFechanac']}: "
+						for="offFechanac" styleClass="text-input" />
+					<p:calendar id="offFechanac"
+						value="#{officerEditMB.bean.offFechanac}"
+						pattern="#{messages['label.date.pattern']}" navigator="true"
+						showButtonPanel="true" locale="#{currentLocale}"
+						title="#{messages['officer.alt.offFechanac']}" />
+					<p:message for="offFechanac" />
+
+					<h:outputLabel value="#{messages['officer.label.seccion']}: "
+						for="section" styleClass="text-input" />
+					<p:selectOneMenu filter="true" required="true"
+						requiredMessage="#{messages['message.required']}"
+						value="#{officerEditMB.sectionId}">
+						<f:selectItem itemLabel="#{messages['selectonemenu.seleccione']}"
+							itemValue="" />
+						<f:selectItems value="#{officerEditMB.selectOneItemSection}" />
+					</p:selectOneMenu>
+					<br />
+					<h:outputLabel value="#{messages['user.label.cargo']}: " for="rol"
+						styleClass="text-input" />
+					<p:selectOneMenu required="true"
+						requiredMessage="#{messages['message.required']}"
+						value="#{officerEditMB.chargeId}">
+						<f:selectItem itemLabel="#{messages['selectonemenu.seleccione']}"
+							itemValue="" />
+						<f:selectItems value="#{officerEditMB.selectOneItemCharge}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

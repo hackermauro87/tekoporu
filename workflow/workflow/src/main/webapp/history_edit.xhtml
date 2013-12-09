@@ -1,0 +1,66 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{historyEditMB.insert}"
+						rendered="#{!historyEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{historyEditMB.update}"
+						rendered="#{historyEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{historyEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{historyEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['history.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fields" columns="3">
+					
+					<h:outputLabel value="#{messages['history.label.hisId']}: " for="hisId" styleClass="text-input" />
+					<h:inputText required="true" requiredMessage="requerido" id="hisId" value="#{historyEditMB.bean.hisId}"
+						title="#{messages['history.alt.hisId']}" />
+					<p:message for="hisId" />
+					
+					<h:outputLabel value="#{messages['history.label.hisDate']}: " for="hisDate" styleClass="text-input" />
+					<p:calendar id="hisDate" value="#{historyEditMB.bean.hisDate}"
+					   pattern="#{messages['label.date.pattern']}" navigator="true" showButtonPanel="true"
+					   locale="#{currentLocale}" title="#{messages['history.alt.hisDate']}" />
+					<p:message for="hisDate" />
+								
+					<h:outputLabel value="#{messages['history.label.hisDel']}: " for="hisDel" styleClass="text-input" />
+					<h:inputText id="hisDel" value="#{historyEditMB.bean.hisDel}"
+						title="#{messages['history.alt.hisDel']}" />
+					<p:message for="hisDel" />
+					
+					<h:outputLabel value="#{messages['history.label.hisDesc']}: " for="hisDesc" styleClass="text-input" />
+					<h:inputText id="hisDesc" value="#{historyEditMB.bean.hisDesc}"
+						title="#{messages['history.alt.hisDesc']}" />
+					<p:message for="hisDesc" />
+					
+					<h:outputLabel value="#{messages['history.label.hisTime']}: " for="hisTime" styleClass="text-input" />
+					<h:inputText id="hisTime" value="#{historyEditMB.bean.hisTime}"
+						title="#{messages['history.alt.hisTime']}" />
+					<p:message for="hisTime" />
+					
+					<h:outputLabel value="#{messages['history.label.document']}: " for="document" styleClass="text-input" />
+					<h:inputText id="document" value="#{historyEditMB.bean.document}"
+						title="#{messages['history.alt.document']}" />
+					<p:message for="document" />
+					
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
